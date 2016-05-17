@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<body>
+<title>training</title>
+
+<form action="training" method="POST">
+url:
+<input id="url" type="text" name="url"><br><br>
+<button type="button" onclick="setIframe()">setIframe</button>
+<iframe id="myIframe" src="http://www.kw.com/kw/" width=100% height=400>
+  <p>Your browser does not support iframes.</p>
+</iframe>
+<button onclick="getSelectionText()">Accept</button>
+<p id="demo"></p>
+
+copy the right address below, then click "Train" button.
+<br>
+
+<input id="address" type="text" name="address"><br><br>
+
+<input type="submit" name="action" value="train">
+</form>
+
+<script>
+function setIframe(){ 
+    var iframe = document.getElementById("myIframe");
+    var url=document.getElementById("url").value;
+    if(!url.startsWith("http"))
+    	url+="http://"+url;
+    iframe.src=url;
+}
+
+function getSelectionText() {
+    var text = "";
+    var iframe = document.getElementById("myIframe");
+    var doc=iframe.contentWindow.document;
+    var window= iframe.contentWindow || iframe.contentDocument.defaultView;
+    if (window.getSelection()) {
+        text = window.getSelection().toString();
+    } else if (doc.selection && doc.selection.type != "Control") {
+        text = "doc "+doc.selection.createRange().text;
+    }
+    document.getElementById("demo").innerHTML = text;
+}
+
+</script>
+
+</body>
+</html>
